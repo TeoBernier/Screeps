@@ -17,16 +17,16 @@ var roomManager = {
         var miner = 0;
         var truck = 0;
         var upgrader = 0;
-
-        for ( var a_creep in a_room.find(FIND_CREEPS)) {
-            if (a_creep.name[0] == 'M') {
-                minerRole.run(a_creep);
+        var creepsList = a_room.find(FIND_MY_CREEPS)
+        for ( var a_creep in creepsList) {
+            if (creepsList[a_creep].name[0] == 'M') {
+                minerRole.run(creepsList[a_creep]);
                 miner++;
-            } else if (a_creep.name[0] == 'T') {
-                truckRole.run(a_creep);
+            } else if (creepsList[a_creep].name[0] == 'T') {
+                truckRole.run(creepsList[a_creep]);
                 truck++;
-            } else if (a_creep.name[0] == 'U') {
-                upgraderRole.run(a_creep);
+            } else if (creepsList[a_creep].name[0] == 'U') {
+                upgraderRole.run(creepsList[a_creep]);
                 upgrader++;
             }
         }
