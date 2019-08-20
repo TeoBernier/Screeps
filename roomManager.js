@@ -13,25 +13,25 @@ var truckRole = require('role.truck');
 var upgraderRole = require('role.upgrader');
 
 var roomManager = {
-    run: function(Room) {
+    run: function(a_room) {
         var miner = 0;
         var truck = 0;
         var upgrader = 0;
 
-        for ( var creep in Room.find(FIND_CREEPS)) {
-            if (creep.name[0] == 'M') {
-                minerRole.run(creep);
+        for ( var a_creep in a_room.find(FIND_CREEPS)) {
+            if (a_creep.name[0] == 'M') {
+                minerRole.run(a_creep);
                 miner++;
-            } else if (creep.name[0] == 'T') {
-                truckRole.run(creep);
+            } else if (a_creep.name[0] == 'T') {
+                truckRole.run(a_creep);
                 truck++;
-            } else if (creep.name[0] == 'U') {
-                upgraderRole.run(creep);
+            } else if (a_creep.name[0] == 'U') {
+                upgraderRole.run(a_creep);
                 upgrader++;
             }
         }
 
-        spawnManager.run(Room, [miner, truck, upgrader])
+        spawnManager.run(a_room, [miner, truck, upgrader])
 
 
     }
