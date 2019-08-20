@@ -29,12 +29,12 @@ var roleTruck = {
             });
             if ( containers.length > 0) {
                 containers = creep.pos.findClosestByPath(containers);
-                if(containers, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                if( creep.transfer(containers, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(containers);
                 }
             } else {
                 if ( creep.pos.inRangeTo(creep.room.controller, 2) ) {
-                    creep.drop(RESOURCE_ENERGY, creep.carry(RESOURCE_ENERGY));
+                    creep.drop(RESOURCE_ENERGY);
                 } else {
                     creep.moveTo(creep.room.controller);
                 }

@@ -18,7 +18,7 @@ var spawnManager = {
         if (NBrole[0] < sources.length) {
             var tab = new Array(int[sources.length]).fill(0);
             for ( var creep in creeps ) {
-                if ( creep.name[0] == M ) tab[ creep.name[1] ] == 1;
+                if ( creep.name[0] == 'M' ) tab[ creep.name[1] ] == 1;
             }
             for ( var i = 0 ; i < sources.length ; i++ ) {
                 if(!tab[i]) {
@@ -30,7 +30,7 @@ var spawnManager = {
         }
         if (NBrole[1] < sources.length) {
             for ( var creep in creeps ) {
-                if ( creep.name[0] ==  ) tab[ creep.name[1] ] == 1;
+                if ( creep.name[0] == 'T' ) tab[ creep.name[1] ] == 1;
             }
             for ( var i = 0 ; i < sources.length ; i++ ) {
                 if(!tab[i]) {

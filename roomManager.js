@@ -19,13 +19,13 @@ var roomManager = {
         var upgrader = 0;
 
         for ( var creep in Room.find(FIND_CREEPS)) {
-            if (creep.name[0] == M) {
+            if (creep.name[0] == 'M') {
                 minerRole.run(creep);
                 miner++;
-            } else if (creep.name[0] == T) {
+            } else if (creep.name[0] == 'T') {
                 truckRole.run(creep);
                 truck++;
-            } else if (creep.name[0] == U) {
+            } else if (creep.name[0] == 'U') {
                 upgraderRole.run(creep);
                 upgrader++;
             }
