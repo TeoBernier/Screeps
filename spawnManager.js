@@ -16,11 +16,11 @@ var spawnManager = {
         var spawnsList = a_room.find(FIND_MY_SPAWNS);
         //---------------------------------------- CHECK DES MINEURS ------------------------------------
         if (NBrole[0] < sourcesList.length) {
-            var tab = int[sourcesList.length].fill(0);
+            var tab = [sourcesList.length].fill(0);
             for ( var a_creep in creepsList ) {
                 if ( a_creep.name[0] == 'M' ) tab[ a_creep.name[1] ] == 1;
             }
-            for ( var i = 0 ; i < sources.length ; i++ ) {
+            for ( var i = 0 ; i < sourcesList.length ; i++ ) {
                 if(!tab[i]) {
                     for ( var a_spawn in spawnsList ) {
                         if ( a_spawn.spawnCreep(toolsManager.modulesNeeded("miner", a_room.energyAvailable, 2), "M" + i + " " + a_room.name + " " + Math.floor(Math.random() * 100) + "", { memory: { idToGo: sourcesList[i].id }}) == 0 ) break;

@@ -17,7 +17,7 @@ var roleUpgrader = {
                 }
             }
         } else {
-          creep.moveTo(creep.room.controller);
+            creep.moveTo(creep.room.controller);
         }
     }
 };

@@ -4,8 +4,11 @@ var roomManager = require('roomManager');
 module.exports.loop = function () {
     //var missions;
     var mission;
-    for( var a_room in Game.rooms.values ) {
-        /*mission = */roomManager.run(a_room);
+    for( var a_room in Game.rooms ) {
+        //mission = 
+        roomManager.run(Game.rooms[a_room]);
+        console.log("bonjour\n")
+        
         //if (mission) missions.push(mission);
     }
     /*for( var mission in missions ) {

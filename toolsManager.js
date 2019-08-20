@@ -1,6 +1,6 @@
 var toolsManager = {
-    modulesNeeded: function(role, energyAmount, biomeMalus, option = NULL) {
-        var body = array<string>[0];
+    modulesNeeded: function(role, energyAmount, biomeMalus) {
+        var body = [];
         if (role == 'miner') {
             var partCount = 0.0;
             for (var i = 0 ; i < 5 ; i++) {
@@ -11,7 +11,6 @@ var toolsManager = {
                 body.push(WORK);
                 partCount++;
             }
-            option = partCount * 2;
             while (energyAmount >= 50 && partCount > 0) {
                 body.push(MOVE);
                 partCount -= 2.0 / biomeMalus;
