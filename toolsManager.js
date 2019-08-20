@@ -42,5 +42,4 @@ var toolsManager = {
     }
 
 };
-
 module.exports = toolsManager;

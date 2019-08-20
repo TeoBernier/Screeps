@@ -10,39 +10,39 @@
 var toolsManager = require('toolsManager');
 
 var spawnManager = {
-    run: function(Room, NBrole) {
-        var sources = Room.find(FIND_SOURCES);
-        var creeps = Room.find(FIND_MY_CREEPS);
-        var spawns = Room.find(FIND_MY_SPAWNS);
+    run: function(a_room, NBrole) {
+        var sourcesList = a_room.find(FIND_SOURCES);
+        var creepsList = a_room.find(FIND_MY_CREEPS);
+        var spawnsList = a_room.find(FIND_MY_SPAWNS);
         //---------------------------------------- CHECK DES MINEURS ------------------------------------
-        if (NBrole[0] < sources.length) {
-            var tab = new Array(int[sources.length]).fill(0);
-            for ( var creep in creeps ) {
-                if ( creep.name[0] == 'M' ) tab[ creep.name[1] ] == 1;
+        if (NBrole[0] < sourcesList.length) {
+            var tab = int[sourcesList.length].fill(0);
+            for ( var a_creep in creepsList ) {
+                if ( a_creep.name[0] == 'M' ) tab[ a_creep.name[1] ] == 1;
             }
             for ( var i = 0 ; i < sources.length ; i++ ) {
                 if(!tab[i]) {
-                    for ( var spawn in spawns ) {
-                        if ( spawn.spawnCreep(toolsManager.modulesNeeded("miner", Room.energyAvailable, 2), "M" + i + " " + Room.name + " " + (int)(Math.random() * 100) + "", { memory: { idToGo: sources[i].id }}) == 0 ) break;
+                    for ( var a_spawn in spawnsList ) {
+                        if ( a_spawn.spawnCreep(toolsManager.modulesNeeded("miner", a_room.energyAvailable, 2), "M" + i + " " + a_room.name + " " + Math.floor(Math.random() * 100) + "", { memory: { idToGo: sourcesList[i].id }}) == 0 ) break;
                     }
                 }
             }
         }
-        if (NBrole[1] < sources.length) {
-            for ( var creep in creeps ) {
-                if ( creep.name[0] == 'T' ) tab[ creep.name[1] ] == 1;
+        if (NBrole[1] < sourcesList.length) {
+            for ( var a_creep in creepsList ) {
+                if ( a_creep.name[0] == 'T' ) tab[ a_creep.name[1] ] == 1;
             }
-            for ( var i = 0 ; i < sources.length ; i++ ) {
+            for ( var i = 0 ; i < sourcesList.length ; i++ ) {
                 if(!tab[i]) {
-                    for ( var spawn in spawns ) {
-                        if ( spawn.spawnCreep(toolsManager.modulesNeeded("truck", Room.energyAvailable, 2), "T" + i + " " + Room.name + " " + (int)(Math.random() * 100) + "", { memory: { idToGo: sources[i].id }} ) == 0 ) break;
+                    for ( var a_spawn in spawnsList ) {
+                        if ( a_spawn.spawnCreep(toolsManager.modulesNeeded("truck", a_room.energyAvailable, 2), "T" + i + " " + a_room.name + " " + Math.floor(Math.random() * 100) + "", { memory: { idToGo: sourcesList[i].id }} ) == 0 ) break;
                     }
                 }
             }
         }
         if( NBrole[2] == 0 ) {
-            for ( var spawn in spawns ) {
-                if ( spawn.spawnCreep(toolsManager.modulesNeeded("upgrader", Room.energyAvailable, 2), "U" + " " + Room.name + " " + (int)(Math.random() * 100) + "") == 0 ) break;
+            for ( var a_spawn in spawnsList ) {
+                if ( a_spawn.spawnCreep(toolsManager.modulesNeeded("upgrader", a_room.energyAvailable, 2), "U" + " " + a_room.name + " " + Math.floor(Math.random() * 100) + "") == 0 ) break;
             }
         }
     }
