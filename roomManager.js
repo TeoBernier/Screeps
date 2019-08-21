@@ -30,7 +30,7 @@ var roomManager = {
                 } else if (creepsList[a_creep].name[0] == 'U') {
                     upgraderRole.run(creepsList[a_creep]);
                     upgrader++;
-                } else if (creepsList[a_creep].name[0] == 'U') {
+                } else if (creepsList[a_creep].name[0] == 'B') {
                     builderRole.run(creepsList[a_creep]);
                     builder++;
                 }
