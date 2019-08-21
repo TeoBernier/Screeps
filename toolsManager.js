@@ -49,16 +49,42 @@ function modulesNeeded(role, energyAmount, biomeMalus) {
     //it seems may return [CARRY,MOVE] without WORK!;
 };
 
-function positionNear(a_position, radius) {
-    var positionsList = Game.rooms[a_position.roomName].lookForAtArea(LOOK_TERRAIN,a_position.y + radius, a_position.x - radius, a_position.y - radius, a_position.x + radius);
+function positionFreeNear(a_position, a_room, rayon) {
+    var positionsList = [];
+    var objectsList = a_room.lookAtArea(a_position.y - rayon, a_position.x - rayon, a_position.y + rayon, a_position.x + rayon);
+    for ( var i = a_position.y - rayon ; i < a_position.y + rayon + 1 ; i++ ) {
+        for ( var j = a_position.x - rayon ; j < a_position.x + rayon + 1 ; j++ ) {
+            if (isPositionFree(objectsList[i][j]) == 1 ) positionsList.push(a_room.getPositionAt(j,i));
+        }
+    }
+    return positionsList;
 };
+
+function isPositionFree(looked_position) {
+    for ( var an_object in looked_position ) {
+        if (looked_position[an_object].type == 'structure') return 0;
+        else if (looked_position[an_object].type == 'terrain') {
+            if(looked_position[an_object].terrain == 'wall') return 0; 
+        }
+    }
+    return 1;
+}
 
 function positionFreeFilter(position){
     return position;
 };
 
+function cleanMemory() {
+    for ( var a_creep in Memory.creeps ) {
+        if(!Game.creeps[a_creep]) {
+            delete Memory.creeps[a_creep];
+        }
+    }
+}
+
 module.exports = {
     modulesNeeded: modulesNeeded,
-    positionNear: positionNear,
-    positionFreeFilter: positionFreeFilter
+    positionFreeNear: positionFreeNear,
+    positionFreeFilter: positionFreeFilter,
+    cleanMemory: cleanMemory,
 };

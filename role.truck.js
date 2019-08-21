@@ -8,18 +8,20 @@
  */
 
 var roleTruck = {
-    run: function(creep) {
-        var objToGo = Game.getObjectById(creep.memory.idToGo);
-
-        if(creep.carry[RESOURCE_ENERGY] == 0) {
-            if ( creep.pos.inRangeTo(objToGo, 3) ) {
-                var energyDropped = creep.pos.findClosestByPath(creep.room.find(FIND_DROPPED_RESOURCES));
-                if ( creep.pickup(energyDropped) == ERR_NOT_IN_RANGE) creep.moveTo(energyDropped);
+    run: function(a_creep) {
+        if(!Game.flags[a_creep.name[1] + "_" + a_creep.room.name] || !Game.flags["U_" + a_creep.room.name]) {
+            a_creep.room.memory.isSet = 0;
+            return;
+        }
+        var flag = Game.flags[a_creep.name[1] + "_" + a_creep.room.name];
+        if(a_creep.carry[RESOURCE_ENERGY] == 0) {
+            if( a_creep.pos.isNearTo(flag.pos) ){
+                a_creep.pickup(flag.pos.findInRange(FIND_DROPPED_RESOURCES, 0)[0]);
             } else {
-                creep.moveTo(objToGo);
+                a_creep.moveTo(flag.pos);   
             }
         } else {
-            var containers = creep.room.find(FIND_MY_STRUCTURES, {
+            var containers = a_creep.room.find(FIND_MY_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION ||
                                 structure.structureType == STRUCTURE_SPAWN ||
@@ -28,15 +30,16 @@ var roleTruck = {
                     }
             });
             if ( containers.length > 0) {
-                containers = creep.pos.findClosestByPath(containers);
-                if( creep.transfer(containers, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(containers);
+                containers = a_creep.pos.findClosestByPath(containers);
+                if( a_creep.transfer(containers, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    a_creep.moveTo(containers);
                 }
             } else {
-                if ( creep.pos.inRangeTo(creep.room.controller, 2) ) {
-                    creep.drop(RESOURCE_ENERGY);
+                var flag_carry = Game.flags["U_" + a_creep.room.name];
+                if ( a_creep.pos.isEqualTo(flag_carry.pos) ) {
+                    a_creep.drop(RESOURCE_ENERGY);
                 } else {
-                    creep.moveTo(creep.room.controller);
+                    a_creep.moveTo(flag_carry.pos);
                 }
             }
         }

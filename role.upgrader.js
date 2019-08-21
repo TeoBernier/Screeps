@@ -9,7 +9,13 @@
 
 var roleUpgrader = {
     run: function(a_creep) {
-        if ( a_creep.pos.inRangeTo(a_creep.room.controller, 2)) {
+        if(!Game.flags["U_" + a_creep.room.name]) {
+            a_creep.room.memory.isSet = 0;
+            return;
+        }
+        var flag = Game.flags["U_" + a_creep.room.name];
+        if ( a_creep.pos.isEqualTo(flag.pos) ) a_creep.moveTo(a_creep.room.controller);
+        else if ( a_creep.pos.inRangeTo(a_creep.room.controller, 3)) {
             if ( a_creep.carry[RESOURCE_ENERGY] > 0 ) {
                 if( a_creep.upgradeController(a_creep.room.controller) == ERR_NOT_IN_RANGE) {
                     a_creep.moveTo(a_creep.room.controller);
@@ -23,7 +29,7 @@ var roleUpgrader = {
                 }
             }
         } else {
-            a_creep.moveTo(a_creep.room.controller);
+            a_creep.moveTo(flag.pos);
         }
     }
 };

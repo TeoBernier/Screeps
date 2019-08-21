@@ -8,10 +8,14 @@
  */
 
 var roleMiner = {
-    run: function(creep) {
-        var objToGo = Game.getObjectById(creep.memory.idToGo);
-        if ( creep.harvest(objToGo)  == ERR_NOT_IN_RANGE ) {
-            creep.moveTo(objToGo);
+    run: function(a_creep) {
+        if(!Game.flags[a_creep.name[1] + "_" + a_creep.room.name]){
+            a_creep.room.memory.isSet = 0;
+            return;
+        } else if( a_creep.pos.isEqualTo(Game.flags[a_creep.name[1] + "_" + a_creep.room.name].pos) ) {
+            a_creep.harvest(a_creep.pos.findInRange(FIND_SOURCES, 1)[0]);
+        } else {
+            a_creep.moveTo(Game.flags[a_creep.name[1] + "_" + a_creep.room.name].pos);
         }
     }
 };
