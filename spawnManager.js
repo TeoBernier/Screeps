@@ -18,10 +18,10 @@ var spawnManager = {
         //---------------------------------------- CHECK DES MINEURS ------------------------------------
         var tab = (new Array(sourcesList.length)).fill(0);
         
-        var nbTruckPerSources = 1;
+        var nbTruckPerSource = 1;
         var nbUpgraders = 3;
         
-        if (NBrole[0] < sourcesList.length) {
+        if (NBrole[0] < sourcesList.length && ((NBrole[0] * nbTruckPerSource) == NBrole[1]) ) {
             
             for ( var a_creep in creepsList ) {
                 if ( creepsList[a_creep].name[0] == 'M' ) tab[ creepsList[a_creep].name[1] ] += 1;
@@ -33,13 +33,12 @@ var spawnManager = {
                     }
                 }
             }
-        } else if (NBrole[1] < sourcesList.length * nbTruckPerSources){
+        } else if (NBrole[1] < sourcesList.length * nbTruckPerSource ){
             for ( var a_creep in creepsList ) {
                 if ( creepsList[a_creep].name[0] == 'T' ) tab[ creepsList[a_creep].name[1] ] += 1;
             }
-            console.log(tab);
             for ( var i = 0 ; i < sourcesList.length ; i++ ) {
-                if(tab[i] < nbTruckPerSources) {
+                if(tab[i] < nbTruckPerSource) {
                     for ( var a_spawn in spawnsList ) {
                         if ( spawnsList[a_spawn].spawnCreep(toolsManager.modulesNeeded("truck", a_room.energyAvailable, 2), "T" + i + "_" + a_room.name + "_" + Math.floor(Math.random() * 100) + "" ) == 0 ) break;
                     }
