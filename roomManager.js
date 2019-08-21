@@ -7,6 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
+var toolsManager = require('toolsManager');
 var spawnManager = require('spawnManager');
 var minerRole = require('role.miner');
 var truckRole = require('role.truck');
@@ -14,7 +15,9 @@ var upgraderRole = require('role.upgrader');
 
 var roomManager = {
     run: function(a_room) {
-        //if(a_room.memory.isSet == 1) {
+        
+        if(a_room.memory.isSet == 1) {
+            
             var miner = 0;
             var truck = 0;
             var upgrader = 0;
@@ -36,10 +39,30 @@ var roomManager = {
                 }
             }
             spawnManager.run(a_room, [miner, truck, upgrader])
-        /*} else {
-            a_room.memory.isSet == 1;
+        } else {
+            a_room.memory.isSet = 1;
+            var sourcesList = a_room.find(FIND_SOURCES);
+            for ( var a_source in sourcesList ) {
+                var positionsListFree = toolsManager.positionFreeNear(sourcesList[a_source].pos, a_room, 1);
+                var bestPlaceToMine = a_room.controller.pos.findClosestByPath(positionsListFree);
+                a_room.createFlag( bestPlaceToMine, "" + a_source + "_" + a_room.name + "", COLOR_YELLOW, COLOR_CYAN);
+            }
+            var positionsListFree = toolsManager.positionFreeNear(a_room.controller.pos, a_room, 2);
+            var bestPositions = [];
+            var max = 0;
+            for ( var positionsFree in positionsListFree ) {
+                var freeSpace = toolsManager.positionFreeNear(positionsListFree[positionsFree], a_room, 1).length;
+                if ( freeSpace > max ) {
+                    bestPositions = [positionsListFree[positionsFree]];
+                    max = freeSpace;
+                } else if( freeSpace = max ) {
+                       bestPositions.push(positionsListFree[positionsFree]);
+                }
+            }
+            var bestPlaceToUpgrade = a_room.find(FIND_MY_SPAWNS)[0].pos.findClosestByPath(bestPositions);
+           console.log(a_room.createFlag( bestPlaceToUpgrade, "U" + "_" + a_room.name + "", COLOR_YELLOW, COLOR_RED));
             
-        }*/
+        }
 
 
     }
