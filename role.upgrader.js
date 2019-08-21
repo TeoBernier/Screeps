@@ -8,16 +8,22 @@
  */
 
 var roleUpgrader = {
-    run: function(creep) {
-        if ( creep.pos.inRangeTo(creep.room.controller, 2)) {
-            var energyDropped = creep.pos.findClosestByPath(creep.room.find(FIND_DROPPED_RESOURCES));
-            if ( creep.pos.inRangeTo(energyDropped, 3) ) {
-                if ( creep.pickup(energyDropped) == ERR_NOT_IN_RANGE ) {
-                    creep.moveTo(energyDropped);
+    run: function(a_creep) {
+        if ( a_creep.pos.inRangeTo(a_creep.room.controller, 2)) {
+            if ( a_creep.carry[RESOURCE_ENERGY] > 0 ) {
+                if( a_creep.upgradeController(a_creep.room.controller) == ERR_NOT_IN_RANGE) {
+                    a_creep.moveTo(a_creep.room.controller);
+                }
+            }
+            var energyDropped = a_creep.pos.findClosestByPath(a_creep.room.find(FIND_DROPPED_RESOURCES));
+        
+            if ( energyDropped && a_creep.pos.inRangeTo(energyDropped, 3) ) {
+                if ( a_creep.pickup(energyDropped) == ERR_NOT_IN_RANGE ) {
+                    a_creep.moveTo(energyDropped);
                 }
             }
         } else {
-            creep.moveTo(creep.room.controller);
+            a_creep.moveTo(a_creep.room.controller);
         }
     }
 };

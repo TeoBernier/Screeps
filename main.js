@@ -7,7 +7,6 @@ module.exports.loop = function () {
     for( var a_room in Game.rooms ) {
         //mission = 
         roomManager.run(Game.rooms[a_room]);
-        console.log("bonjour\n")
         
         //if (mission) missions.push(mission);
     }
