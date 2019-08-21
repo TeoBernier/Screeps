@@ -38,13 +38,15 @@ function modulesNeeded(role, energyAmount, biomeMalus) {
     } else if (role == 'builder') {
         body.push(CARRY);
         body.push(MOVE);
-        energyAmount -= 100;
+        body.push(WORK);
+        energyAmount -= 200;
         while (energyAmount >= 100) {
             body.push(WORK);
             energyAmount -= 100;
         }
     }
     return body;
+    //it seems may return [CARRY,MOVE] without WORK!;
 };
 
 function positionNear(a_position, radius) {
