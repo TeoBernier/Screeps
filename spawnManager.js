@@ -11,7 +11,7 @@ var toolsManager = require('toolsManager');
 
 var spawnManager = {
     run: function(a_room, NBrole) {
-        if ( a_room.energyAvailable < a_room.energyCapacityAvailable && (NBrole[1] != 0 || a_room.energyAvailable < 300 )) return;
+        if ( a_room.energyAvailable < a_room.energyCapacityAvailable && ( (NBrole[0] > 0 && NBrole[1] > 0) || a_room.energyAvailable < 300 )) return;
         var sourcesList = a_room.find(FIND_SOURCES);
         var creepsList = a_room.find(FIND_MY_CREEPS);
         var spawnsList = a_room.find(FIND_MY_SPAWNS);
@@ -21,7 +21,7 @@ var spawnManager = {
         var nbTruckPerSource = 1;
         var nbUpgraders = 3;
         
-        if (NBrole[0] < sourcesList.length && ((NBrole[0] * nbTruckPerSource) == NBrole[1]) ) {
+        if (NBrole[0] < sourcesList.length && ((NBrole[0] * nbTruckPerSource) <= NBrole[1]) ) {
             
             for ( var a_creep in creepsList ) {
                 if ( creepsList[a_creep].name[0] == 'M' ) tab[ creepsList[a_creep].name[1] ] += 1;
