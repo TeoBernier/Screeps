@@ -15,6 +15,7 @@ var upgraderRole = require('role.upgrader');
 
 var roomManager = {
     run: function(a_room) {
+        
         if(a_room.memory.isSet == 1) {
             
             var miner = 0;
@@ -47,8 +48,19 @@ var roomManager = {
                 a_room.createFlag( bestPlaceToMine, "" + a_source + "_" + a_room.name + "", COLOR_YELLOW, COLOR_CYAN);
             }
             var positionsListFree = toolsManager.positionFreeNear(a_room.controller.pos, a_room, 2);
-            var bestPlaceToUpgrade = a_room.find(FIND_MY_SPAWNS)[0].pos.findClosestByPath(positionsListFree);
-            a_room.createFlag( bestPlaceToUpgrade, "U" + "_" + a_room.name + "", COLOR_YELLOW, COLOR_RED);
+            var bestPositions = [];
+            var max = 0;
+            for ( var positionsFree in positionsListFree ) {
+                var freeSpace = toolsManager.positionFreeNear(positionsListFree[positionsFree], a_room, 1).length;
+                if ( freeSpace > max ) {
+                    bestPositions = [positionsListFree[positionsFree]];
+                    max = freeSpace;
+                } else if( freeSpace = max ) {
+                       bestPositions.push(positionsListFree[positionsFree]);
+                }
+            }
+            var bestPlaceToUpgrade = a_room.find(FIND_MY_SPAWNS)[0].pos.findClosestByPath(bestPositions);
+           console.log(a_room.createFlag( bestPlaceToUpgrade, "U" + "_" + a_room.name + "", COLOR_YELLOW, COLOR_RED));
             
         }
 

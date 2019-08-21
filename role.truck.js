@@ -9,6 +9,10 @@
 
 var roleTruck = {
     run: function(a_creep) {
+        if(!Game.flags[a_creep.name[1] + "_" + a_creep.room.name] || !Game.flags["U_" + a_creep.room.name]) {
+            a_creep.room.memory.isSet = 0;
+            return;
+        }
         var flag = Game.flags[a_creep.name[1] + "_" + a_creep.room.name];
         if(a_creep.carry[RESOURCE_ENERGY] == 0) {
             if( a_creep.pos.isNearTo(flag.pos) ){

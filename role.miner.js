@@ -9,7 +9,10 @@
 
 var roleMiner = {
     run: function(a_creep) {
-        if( a_creep.pos.isEqualTo(Game.flags[a_creep.name[1] + "_" + a_creep.room.name].pos) ) {
+        if(!Game.flags[a_creep.name[1] + "_" + a_creep.room.name]){
+            a_creep.room.memory.isSet = 0;
+            return;
+        } else if( a_creep.pos.isEqualTo(Game.flags[a_creep.name[1] + "_" + a_creep.room.name].pos) ) {
             a_creep.harvest(a_creep.pos.findInRange(FIND_SOURCES, 1)[0]);
         } else {
             a_creep.moveTo(Game.flags[a_creep.name[1] + "_" + a_creep.room.name].pos);
