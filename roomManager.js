@@ -12,6 +12,7 @@ var spawnManager = require('spawnManager');
 var minerRole = require('role.miner');
 var truckRole = require('role.truck');
 var upgraderRole = require('role.upgrader');
+var builderRole = require("role.builder");
 
 var roomManager = {
     run: function(a_room) {
@@ -22,7 +23,7 @@ var roomManager = {
             var truck = 0;
             var upgrader = 0;
             var builder = 0;
-            var creepsList = a_room.find(FIND_MY_CREEPS)
+            var creepsList = a_room.find(FIND_MY_CREEPS);
             for ( var a_creep in creepsList) {
                 if (creepsList[a_creep].name[0] == 'M') {
                     minerRole.run(creepsList[a_creep]);
@@ -33,12 +34,12 @@ var roomManager = {
                 } else if (creepsList[a_creep].name[0] == 'U') {
                     upgraderRole.run(creepsList[a_creep]);
                     upgrader++;
-                } else if (creepsList[a_creep].name[0] == 'B') {
+                } else if (creepsList[a_creep].name[0] == 'U') {
                     builderRole.run(creepsList[a_creep]);
                     builder++;
                 }
             }
-            spawnManager.run(a_room, [miner, truck, upgrader])
+            spawnManager.run(a_room, [miner, truck, upgrader]);
         } else {
             a_room.memory.isSet = 1;
             var sourcesList = a_room.find(FIND_SOURCES);
@@ -55,7 +56,7 @@ var roomManager = {
                 if ( freeSpace > max ) {
                     bestPositions = [positionsListFree[positionsFree]];
                     max = freeSpace;
-                } else if( freeSpace = max ) {
+                } else if( freeSpace == max ) {
                        bestPositions.push(positionsListFree[positionsFree]);
                 }
             }
