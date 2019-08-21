@@ -35,6 +35,14 @@ function modulesNeeded(role, energyAmount, biomeMalus) {
             body.push(WORK);
             energyAmount -= 100;
         }
+    } else if (role == 'builder') {
+        body.push(CARRY);
+        body.push(MOVE);
+        energyAmount -= 100;
+        while (energyAmount >= 100) {
+            body.push(WORK);
+            energyAmount -= 100;
+        }
     }
     return body;
 };
