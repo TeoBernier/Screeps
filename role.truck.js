@@ -25,9 +25,8 @@ var roleTruck = {
                     filter: (a_structure) => {
                         return (a_structure.structureType == STRUCTURE_EXTENSION ||
                                 a_structure.structureType == STRUCTURE_SPAWN ||
-                                a_structure.structureType == STRUCTURE_CONTAINER ||
-                                (a_structure.structureType == STRUCTURE_TOWER && a_structure.energy < a_structure.energyCapacity / 2) ||
-                                a_structure.structureType == STRUCTURE_CONTAINER) && (a_structure.energy < a_structure.energyCapacity) && ((!a_structure.owner) || a_structure.my);
+                                (a_structure.structureType == STRUCTURE_TOWER && a_structure.energy < a_structure.energyCapacity / 2)) && 
+                                (a_structure.energy < a_structure.energyCapacity) && ((!a_structure.owner) || a_structure.my);
                     }
             });
             if ( containers.length > 0) {
