@@ -9,8 +9,7 @@
 
 var buildingManager = {
     run: function(a_room) {
-        var structuresList = a_room.find(FIND_MY_STRUCTURES);
-        var constructionSitesList = a_room.fin(FIND_MY_CONSTRUCTION_SITES);
+        constructions = toolsManager.constructionsRemaining(a_room);
         
         
         

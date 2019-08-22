@@ -7,7 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
-var roleTruck = {
+var roleLittleTruck = {
     run: function(a_creep) {
         if(!Game.flags[a_creep.name[1] + "_" + a_creep.room.name] || !Game.flags["U_" + a_creep.room.name]) {
             a_creep.room.memory.isSet = 0;
@@ -56,4 +56,4 @@ var roleTruck = {
     }
 };
 
-module.exports = roleTruck;
+module.exports = roleLittleTruck;

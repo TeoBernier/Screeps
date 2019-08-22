@@ -12,6 +12,8 @@ var spawnManager = require('spawnManager');
 var minerRole = require('role.miner');
 var truckRole = require('role.truck');
 var upgraderRole = require('role.upgrader');
+var builderRole = require('role.builder');
+var towerRole = require('role.tower');
 
 var roomManager = {
     run: function(a_room) {
@@ -22,7 +24,12 @@ var roomManager = {
             var truck = 0;
             var upgrader = 0;
             var builder = 0;
-            var creepsList = a_room.find(FIND_MY_CREEPS)
+            var littletruck = 0;
+            var creepsList = a_room.find(FIND_MY_CREEPS);
+            var towersList = a_room.find(FIND_MY_STRUCTURES, {
+                filter: (a_structure) => {
+                    return a_structure.structureType == STRUCTURE_TOWER;
+                }});
             for ( var a_creep in creepsList) {
                 if (creepsList[a_creep].name[0] == 'M') {
                     minerRole.run(creepsList[a_creep]);
@@ -33,12 +40,18 @@ var roomManager = {
                 } else if (creepsList[a_creep].name[0] == 'U') {
                     upgraderRole.run(creepsList[a_creep]);
                     upgrader++;
-                } else if (creepsList[a_creep].name[0] == 'U') {
+                } else if (creepsList[a_creep].name[0] == 'B') {
                     builderRole.run(creepsList[a_creep]);
                     builder++;
+                } else if (creepsList[a_creep].name[0] == 't') {
+                    truckRole.run(creepsList[a_creep]);
+                    littletruck++;
                 }
             }
-            spawnManager.run(a_room, [miner, truck, upgrader])
+            spawnManager.run(a_room, [miner, truck, upgrader, builder, littletruck])
+            for( var a_tower in towersList ){
+                towerRole.run(towersList[a_tower]);
+            }
         } else {
             a_room.memory.isSet = 1;
             var sourcesList = a_room.find(FIND_SOURCES);
